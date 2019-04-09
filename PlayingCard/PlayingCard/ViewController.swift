@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         var cards = [PlayingCard]()
-        for _ in 1...((cardViews.count+1)/2) {
+        for _ in 1...((cardViews.count)/2) {
             let card = deck.draw()!
             cards += [card, card]
         }
@@ -26,11 +26,11 @@ class ViewController: UIViewController {
             cardView.rank = card.rank.order
             cardView.suit = card.suit.rawValue
             cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCard(_:))))
-//            cardBehavior.addItem(cardView)
+            //            cardBehavior.addItem(cardView)
         }
     }
-
-
+    
+    
     
     
     
@@ -41,7 +41,15 @@ class ViewController: UIViewController {
         switch recognizer.state {
         case .ended:
             if let chosenCardView = recognizer.view as? PlayingCardView {
-                chosenCardView.isFaceUp = !chosenCardView.isFaceUp
+                UIView.transition(with: chosenCardView,
+                                  duration: 0.6,
+                                  options: [.transitionFlipFromLeft],
+                                  animations: {
+                                    chosenCardView.isFaceUp = !chosenCardView.isFaceUp
+                }
+//                                  completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>
+                )
+                
             }
         default:
             break
