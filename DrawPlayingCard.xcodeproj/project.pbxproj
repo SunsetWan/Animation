@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		436C4ED02250E6490011132E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 436C4ECF2250E6490011132E /* Assets.xcassets */; };
+		4338BA8E225C3ECD0055AC7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4338BA8D225C3ECD0055AC7B /* Assets.xcassets */; };
 		439330CD224DF21400324AD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439330CC224DF21400324AD8 /* AppDelegate.swift */; };
 		439330CF224DF21400324AD8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439330CE224DF21400324AD8 /* ViewController.swift */; };
 		439330D2224DF21400324AD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439330D0224DF21400324AD8 /* Main.storyboard */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		436C4ECF2250E6490011132E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../Downloads/CS193P-iOS11-Lecture-6-PlayingCard-master/PlayingCard/Assets.xcassets"; sourceTree = "<group>"; };
+		4338BA8D225C3ECD0055AC7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../Downloads/cs193p-2017-fall-demo-and-solution-master/lecture_6/demo/PlayingCard/PlayingCard/Assets.xcassets"; sourceTree = "<group>"; };
 		439330C9224DF21400324AD8 /* DrawPlayingCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawPlayingCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439330CC224DF21400324AD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439330CE224DF21400324AD8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 				439330E1224E0FFE00324AD8 /* PlayingCard.swift */,
 				439330E3224E102700324AD8 /* PlayingCardDeck.swift */,
 				439330D8224DF21500324AD8 /* Info.plist */,
-				436C4ECF2250E6490011132E /* Assets.xcassets */,
+				4338BA8D225C3ECD0055AC7B /* Assets.xcassets */,
 			);
 			path = DrawPlayingCard;
 			sourceTree = "<group>";
@@ -140,7 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				439330D7224DF21500324AD8 /* LaunchScreen.storyboard in Resources */,
-				436C4ED02250E6490011132E /* Assets.xcassets in Resources */,
+				4338BA8E225C3ECD0055AC7B /* Assets.xcassets in Resources */,
 				439330D2224DF21400324AD8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
