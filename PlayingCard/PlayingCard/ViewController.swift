@@ -20,12 +20,7 @@ class ViewController: UIViewController {
 
     //Note the parentheses after the closure.
     //That assigns the result of calling the closure to your variable collisionBehavior the first time you reference the variable.
-    lazy var collisionBehavior: UICollisionBehavior = {
-        let behavior = UICollisionBehavior()
-        behavior.translatesReferenceBoundsIntoBoundary = true
-        animator.addBehavior(behavior)
-        return behavior
-    }()
+   
     
     @IBOutlet var cardViews: [PlayingCardView]!
     
@@ -34,6 +29,10 @@ class ViewController: UIViewController {
         faceUpCardViews[0].rank == faceUpCardViews[1].rank &&
         faceUpCardViews[0].suit == faceUpCardViews[1].suit
     }
+    
+   
+    
+    lazy var cardBehavior = CardBehavior(in: animator)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,23 +47,15 @@ class ViewController: UIViewController {
             cardView.rank = card.rank.order
             cardView.suit = card.suit.rawValue
             cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCard(_:))))
-//            cardBehavior.addItem(cardView)
-            collisionBehavior.addItem(cardView)
-            let push = UIPushBehavior(items: [cardView], mode: .instantaneous)
-            push.angle = (2*CGFloat.pi).arc4random
-            push.magnitude = CGFloat(1.0) + CGFloat(2.0).arc4random
-            animator.addBehavior(push)
+            cardBehavior.addItem(cardView)
+            //collisionBehavior.addItem(cardView)
+            //itemBehavior.addItem(cardView)
         }
     }
     
     private var faceUpCardViews: [PlayingCardView] {
         return cardViews.filter { $0.isFaceUp && !$0.isHidden }
     }
-    
-    
-    
-    
-    
     
     @objc func flipCard(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
