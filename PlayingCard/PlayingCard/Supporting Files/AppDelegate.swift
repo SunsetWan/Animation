@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  DrawPlayingCard
+//  PlayingCard
 //
-//  Created by sunsetwan on 2019/3/29.
+//  Created by sunsetwan on 2019/4/9.
 //  Copyright © 2019 sunsetwan. All rights reserved.
 //
 

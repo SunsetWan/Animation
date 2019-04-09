@@ -1,34 +1,32 @@
 //
 //  PlayingCard.swift
-//  DrawPlayingCard
+//  PlayingCard
 //
-//  Created by sunsetwan on 2019/3/29.
+//  Created by sunsetwan on 2019/4/9.
 //  Copyright © 2019 sunsetwan. All rights reserved.
 //
 
 import Foundation
 
-struct PlayingCard: CustomStringConvertible {
+struct PlayingCard: CustomStringConvertible
+{
     var description: String { return "\(rank)\(suit)" }
     
     var suit: Suit
     var rank: Rank
     
-    enum Suit: String  {
-        
-        
+    enum Suit: String, CustomStringConvertible {
         case spades = "♠️"
         case hearts = "❤️"
-        case diamonds = "♦️"
         case clubs = "♣️"
+        case diamonds = "♦️"
         
-        static var all = [Suit.spades, .hearts, .diamonds, .clubs]
+        static var all = [Suit.spades,.hearts,.diamonds,.clubs]
+        
+        var description: String { return rawValue }
     }
     
-    
-    
-    enum Rank {
-        
+    enum Rank: CustomStringConvertible {
         case ace
         case face(String)
         case numeric(Int)
@@ -49,10 +47,17 @@ struct PlayingCard: CustomStringConvertible {
             for pips in 2...10 {
                 allRanks.append(Rank.numeric(pips))
             }
-            
-            allRanks += [Rank.face("J"), Rank.face("Q"), Rank.face("K")]
-            
+            allRanks += [Rank.face("J"),.face("Q"),.face("K")]
             return allRanks
+        }
+        
+        var description: String {
+            switch self {
+            case .ace: return "A"
+            case .numeric(let pips): return String(pips)
+            case .face(let kind): return kind
+            }
         }
     }
 }
+
