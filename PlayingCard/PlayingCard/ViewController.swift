@@ -9,7 +9,23 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
     private var deck = PlayingCardDeck()
+    
+    //An object that provides physics-related capabilities and animations for its dynamic items,
+    //and provides the context for those animations.
+    //To use dynamics, configure one or more dynamic behaviors—including providing each with a set of dynamic items—and,
+    //then add those behaviors to a dynamic animator.
+    lazy var animator = UIDynamicAnimator(referenceView: view)
+
+    //Note the parentheses after the closure.
+    //That assigns the result of calling the closure to your variable collisionBehavior the first time you reference the variable.
+    lazy var collisionBehavior: UICollisionBehavior = {
+        let behavior = UICollisionBehavior()
+        behavior.translatesReferenceBoundsIntoBoundary = true
+        animator.addBehavior(behavior)
+        return behavior
+    }()
     
     @IBOutlet var cardViews: [PlayingCardView]!
     
@@ -32,7 +48,12 @@ class ViewController: UIViewController {
             cardView.rank = card.rank.order
             cardView.suit = card.suit.rawValue
             cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCard(_:))))
-            //            cardBehavior.addItem(cardView)
+//            cardBehavior.addItem(cardView)
+            collisionBehavior.addItem(cardView)
+            let push = UIPushBehavior(items: [cardView], mode: .instantaneous)
+            push.angle = (2*CGFloat.pi).arc4random
+            push.magnitude = CGFloat(1.0) + CGFloat(2.0).arc4random
+            animator.addBehavior(push)
         }
     }
     
@@ -50,7 +71,7 @@ class ViewController: UIViewController {
         case .ended:
             if let chosenCardView = recognizer.view as? PlayingCardView {
                 UIView.transition(with: chosenCardView,
-                                  duration: 0.6,
+                                  duration: 0.8,
                                   options: [.transitionFlipFromLeft],
                                   animations: {
                                     chosenCardView.isFaceUp = !chosenCardView.isFaceUp
@@ -66,8 +87,35 @@ class ViewController: UIViewController {
                                                self.faceUpCardViews.forEach {
                                                     $0.transform = CGAffineTransform.identity.scaledBy(x: 3.0, y: 3.0)
                                                 }
+                                            },
+                                            completion: { position in
+                                                UIViewPropertyAnimator.runningPropertyAnimator(
+                                                    withDuration: 0.6,
+                                                    delay: 0,
+                                                    options: [],
+                                                    animations: {
+                                                        self.faceUpCardViews.forEach {
+                                                            $0.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1)
+                                                            $0.alpha = 0
+                                                        }
+                                                },
+                                                    // Do some cleanup,
+                                                    // We want to remove these cards which already matched.
+                                                    // Because they no longer can be involved in the matches.
+                                                     completion: { position in
+                                                        self.faceUpCardViews.forEach {
+                                                            $0.isHidden = true
+                                                            $0.alpha = 1
+                                                            // set faceUpCardView's transform back to "identity", this means "reset".
+                                                            $0.transform = .identity
+                                                        }
+                                                        
+                                                }
+                                                
+                                                
+                                                )
+                                                
                                             }
-//                                            completion: <#T##((UIViewAnimatingPosition) -> Void)?##((UIViewAnimatingPosition) -> Void)?##(UIViewAnimatingPosition) -> Void#>
                                         )
                                     }
                                     
