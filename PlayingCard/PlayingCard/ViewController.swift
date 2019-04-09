@@ -13,6 +13,12 @@ class ViewController: UIViewController {
     
     @IBOutlet var cardViews: [PlayingCardView]!
     
+    private var faceUpCardViewsMatch: Bool {
+        return faceUpCardViews.count == 2 &&
+        faceUpCardViews[0].rank == faceUpCardViews[1].rank &&
+        faceUpCardViews[0].suit == faceUpCardViews[1].suit
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         var cards = [PlayingCard]()
@@ -50,13 +56,29 @@ class ViewController: UIViewController {
                                     chosenCardView.isFaceUp = !chosenCardView.isFaceUp
                 },
                                   completion: { finished in
+                                    if self.faceUpCardViewsMatch {
+                                        // The animator operates on animatable properties of views, such as the frame, center, alpha, and transform properties, creating the needed animations from the blocks you provide.
+                                        UIViewPropertyAnimator.runningPropertyAnimator(
+                                            withDuration: 0.6,
+                                            delay: 0,
+                                            options: [],
+                                            animations: {
+                                               self.faceUpCardViews.forEach {
+                                                    $0.transform = CGAffineTransform.identity.scaledBy(x: 3.0, y: 3.0)
+                                                }
+                                            }
+//                                            completion: <#T##((UIViewAnimatingPosition) -> Void)?##((UIViewAnimatingPosition) -> Void)?##(UIViewAnimatingPosition) -> Void#>
+                                        )
+                                    }
+                                    
+                                    
                                     // But do we actually have a memory cycle here?
                                     // No, because this closure does capture self, self doesn't point to this closure in any way.
                                     // It's not part of any var. It's not any part of a dictionary or an array or anything that self has.
                                     // It's a closure we're giving off to the animation system.
                                     // So only the animation system has a pointer to it.
                                     // There is no memory cycle.
-                                    if self.faceUpCardViews.count == 2 {
+                                   else if self.faceUpCardViews.count == 2 {
                                         self.faceUpCardViews.forEach { cardView in
                                             UIView.transition(with: cardView,
                                                               duration: 0.6,
@@ -77,7 +99,7 @@ class ViewController: UIViewController {
 //                                                        chosenCardView.isFaceUp = !chosenCardView.isFaceUp
 //                                    },
 //                                                      completion: { finished in
-//                                                        
+//
 //                                    }
 //                                    )
                     }
